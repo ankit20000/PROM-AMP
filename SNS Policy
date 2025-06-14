@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Allow_Publish_Alarms",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "aps.amazonaws.com"
+      },
+      "Action": [
+        "sns:Publish",
+        "sns:GetTopicAttributes"
+      ],
+      "Resource": "arn:aws:sns:us-east-1:299928847247:prometheus-sns",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceAccount": "299928847247"
+        },
+        "ArnEquals": {
+          "aws:SourceArn": "arn:aws:aps:us-east-1:299928847247:workspace/ws-116ba741-811"
+        }
+      }
+    }
+  ]
+}
