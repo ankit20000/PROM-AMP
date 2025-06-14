@@ -1,0 +1,12 @@
+groups:
+
+- name: disk-space-alerts
+  rules:
+  - alert: DiskSpaceUsageHigh
+    expr: 100 - ((node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100) > 10
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High disk space usage (instance {{ $labels.instance }})"
+      description: "Disk space usage is high on instance {{ $labels.instance }}"
