@@ -1,0 +1,20 @@
+1-### Disk spaces 
+100 - ((node_filesystem_avail_bytes{mountpoint="/", job!="prometheus"} / node_filesystem_size_bytes{mountpoint="/", job="ec2-node-exporter"}) * 100) > 10
+
+2-### Check Inodes
+
+100 - ((node_filesystem_files_free{mountpoint="/", job="ec2-node-exporter"} / node_filesystem_files{mountpoint="/", job="ec2-node-exporter"}) * 100)
+
+#### 
+
+3#### CPU usage
+
+100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle", job="ec2-node-exporter"}[5m])) * 100)
+
+4 #### memory usage
+100 * (1 - (node_memory_MemAvailable_bytes{job="ec2-node-exporter"} / node_memory_MemTotal_bytes{job="ec2-node-exporter"}))
+
+
+
+
+
