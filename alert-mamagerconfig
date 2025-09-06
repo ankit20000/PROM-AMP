@@ -1,12 +1,15 @@
 alertmanager_config: |
   route:
     receiver: 'default'
+    group_wait: 30s
+    group_interval: 1m
+    repeat_interval: 5m   # 🔑 resend alert every 5 minutes if still firing
   receivers:
     - name: 'default'
       sns_configs:
-        - topic_arn: arn:aws:sns:us-east-1:299928847247:prometheus-sns
+        - topic_arn: arn:aws:sns:ap-south-1:635xxxx:Prom-sns
           sigv4:
-            region: us-east-1
+            region: ap-south-1
           attributes:
             key: severity
             value: SEV2
